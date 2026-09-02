@@ -14,8 +14,8 @@ L'unico prerequisito è **Docker** con Compose: Maven, MySQL e Tomcat non vanno 
 come immagini dentro i contenitori.
 
 ```bash
-git clone https://github.com/g-cer/ProgTswCerCom.git
-cd ProgTswCerCom
+git clone https://github.com/g-cer/keyitaly-ecommerce.git
+cd keyitaly-ecommerce
 docker compose up --build
 ```
 
