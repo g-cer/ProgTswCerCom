@@ -1,0 +1,361 @@
+\documentclass[11pt,a4paper]{article}
+
+\input{preambolo}
+\input{diagrammi}
+
+\title{KeyItaly --- Project Proposal}
+\author{Giovanni Cerchia \and Andrea Compagnone}
+\date{Anno Accademico 2023/2024}
+
+\begin{document}
+
+% Il frontespizio e l'indice non ricevono ancoraggi di pagina: senza questo,
+% la numerazione ripartendo da 1 creerebbe due destinazioni con lo stesso nome.
+\hypersetup{pageanchor=false}
+\frontespizio{Project Proposal}{Proposta di progetto e sistema realizzato}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+
+\section{Obiettivo del progetto}
+
+\emph{KeyItaly} si propone come sito di commercio elettronico per la vendita di
+tastiere meccaniche e di accessori quali switch e keycaps, rivolto sia agli
+appassionati sia ai professionisti che cercano prodotti di qualità e
+personalizzabili.
+
+Il catalogo offre tastiere adatte a esigenze diverse --- dal gioco allo sviluppo
+software, dal lavoro d'ufficio alla scrittura --- affiancate dai componenti
+necessari a personalizzare una tastiera già assemblata. L'interfaccia è
+progettata in modo responsive, così da restare utilizzabile da qualsiasi
+dispositivo e a qualsiasi risoluzione.
+
+\section{Analisi dei competitor}
+
+L'analisi ha riguardato due negozi di riferimento del settore, uno
+internazionale e uno italiano, dai quali sono state tratte le scelte di
+struttura e di navigazione adottate nel progetto.
+
+\subsection{Keychron}
+
+\noindent\url{https://www.keychron.com/}
+
+\figuraLarga{figures/keychron-home.jpeg}
+  {Pagina principale di Keychron.}{fig:keychron}
+
+Keychron è specializzato in tastiere meccaniche wireless. L'interfaccia è
+essenziale: un banner centrale presenta novità e prossime uscite, mentre
+l'header raccoglie i collegamenti al catalogo completo (\emph{All products}), a
+quello delle sole tastiere (\emph{All keyboards}), alla barra di ricerca,
+all'area utente e al carrello.
+
+Il catalogo può essere filtrato per tipo, serie, layout, disponibilità e prezzo,
+e ordinato per nome, data, prezzo, prodotti in evidenza e più venduti. Ogni
+prodotto dispone di una scheda con descrizione, fotografie e selezione di
+colore e tipo di switch. Il carrello è utilizzabile senza autenticazione, che
+viene richiesta solo al momento del pagamento: è la soluzione adottata anche in
+KeyItaly.
+
+\subsection{CoffeeKeys}
+
+\noindent\url{https://coffeekeys.eu/}
+
+\figuraLarga{figures/coffeekeys-home.jpeg}
+  {Pagina principale di CoffeeKeys.}{fig:coffeekeys-home}
+
+CoffeeKeys è il primo negozio italiano dedicato esclusivamente alle tastiere
+meccaniche. La struttura è simile a quella di Keychron: banner delle novità in
+apertura, logo centrale affiancato da ricerca, area utente e carrello, e un menù
+che articola il catalogo per brand e per dimensione, con le categorie
+\emph{DIY} e \emph{Group Buys}. Completano il sito le sezioni
+\emph{Accessori}, \emph{Contattaci} e \emph{FAQ}, e una sezione \emph{News} con
+guide all'acquisto.
+
+\figuraLarga{figures/coffeekeys-prodotto.jpeg}
+  {Scheda di prodotto su CoffeeKeys.}{fig:coffeekeys-prodotto}
+
+La scheda di prodotto raccoglie fotografie da più angolazioni, selezione di
+colore e switch, specifiche tecniche e articoli correlati. È il modello a cui si
+ispira la pagina di dettaglio di KeyItaly.
+
+\section{Funzionalità del sito}
+
+Le funzionalità sono organizzate su tre livelli di accesso.
+
+\subsection{Utente non registrato}
+
+\begin{itemize}
+  \item consultare il catalogo completo o filtrato per categoria di prodotto;
+  \item ordinare il catalogo per nome, prezzo o tipo;
+  \item visualizzare la pagina di dettaglio di un prodotto;
+  \item cercare prodotti per nome;
+  \item aggiungere e rimuovere prodotti dal carrello;
+  \item registrarsi, operazione richiesta solo per concludere un acquisto.
+\end{itemize}
+
+\subsection{Utente registrato}
+
+Oltre a quanto sopra:
+
+\begin{itemize}
+  \item concludere un acquisto;
+  \item consultare lo storico dei propri ordini;
+  \item richiedere e scaricare la fattura di un ordine;
+  \item modificare i propri dati: nome, cognome, indirizzo predefinito e metodo
+        di pagamento.
+\end{itemize}
+
+\subsection{Amministratore}
+
+\begin{itemize}
+  \item inserire, modificare ed eliminare i prodotti del catalogo tramite
+        un'interfaccia dedicata, senza richiedere competenze di programmazione;
+  \item consultare tutti gli ordini, filtrandoli per cliente e per intervallo di
+        date.
+\end{itemize}
+
+\section{Diagramma navigazionale}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\linewidth}{!}{\diagrammaNavigazionale}
+  \caption{Diagramma navigazionale del sito.}\label{fig:navigazionale}
+\end{figure}
+
+\section{Mappa dei contenuti}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\linewidth}{!}{\mappaContenuti}
+  \caption{Mappa dei contenuti: i collegamenti percorribili fra le pagine.
+           La codifica cromatica è quella della figura~\ref{fig:navigazionale}.}
+  \label{fig:contenuti}
+\end{figure}
+
+\section{Base di dati}
+
+Lo schema concettuale è organizzato attorno a quattro concetti: l'utente, che si
+specializza in cliente e amministratore; l'ordine, eseguito da un cliente; il
+prodotto, a sua volta specializzato nelle tre categorie in vendita; e l'acquisto,
+che associa un ordine ai prodotti che lo compongono registrandone quantità,
+prezzo e aliquota IVA al momento dell'acquisto.
+
+\begin{figure}[H]
+  \centering
+  \schemaER
+  \caption{Schema concettuale della base di dati.}\label{fig:er}
+\end{figure}
+
+\section{Layout}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.78\linewidth}{!}{\wireframeHome}
+  \caption{Wireframe della pagina principale.}\label{fig:layout}
+\end{figure}
+
+\section{Scelta dei colori}
+
+La palette è costruita attorno a un blu primario, impiegato per gli elementi
+interattivi e per gli accenti, affiancato da una scala di neutri per gli sfondi e
+per il testo.
+
+\begin{figure}[H]
+  \centering
+  \paletteColori
+  \caption{Palette cromatica del sito.}\label{fig:colori}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{llp{7cm}}
+    \toprule
+    \textbf{Colore} & \textbf{Codice} & \textbf{Impiego} \\
+    \midrule
+    Deep Sky Blue & \texttt{\#007BFF} & Colore primario: titoli, collegamenti ed elementi in evidenza \\
+    Blue Eyes     & \texttt{\#1663C7} & Variante scura del primario, per gli stati attivi \\
+    Snow Drift    & \texttt{\#F8F9FA} & Sfondo delle pagine \\
+    White         & \texttt{\#FFFFFF} & Sfondo delle schede prodotto e dei riquadri \\
+    Dune          & \texttt{\#333333} & Testo, barra di navigazione e footer \\
+    \bottomrule
+  \end{tabular}
+  \caption{Impiego dei colori nell'interfaccia.}\label{tab:colori}
+\end{table}
+
+\clearpage
+\section{Il sistema realizzato}
+
+Questa sezione descrive sinteticamente l'applicazione effettivamente sviluppata
+e segnala i punti in cui si discosta dalla proposta.
+
+\subsection{Architettura}
+
+L'applicazione è scritta in Java secondo il modello \emph{Model--View--Controller}:
+le servlet fanno da controller, le pagine JSP da viste e la persistenza è
+affidata al pattern DAO su MySQL tramite JDBC. Il pool di connessioni è dichiarato
+come risorsa JNDI e gestito dal contenitore, non dall'applicazione.
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{llp{6.4cm}}
+    \toprule
+    \textbf{Componente} & \textbf{Versione} & \textbf{Ruolo} \\
+    \midrule
+    Java SE             & 11 & Livello linguistico di compilazione \\
+    Servlet API         & 4.0 (\texttt{javax.servlet}) & Servlet, filtri e listener \\
+    Apache Tomcat       & 9.0 & Contenitore web e pool di connessioni \\
+    MySQL               & 8.0 & Base di dati \\
+    Apache PDFBox       & 2.0.29 & Generazione delle fatture \\
+    Google Gson         & 2.11.0 & Serializzazione JSON per gli endpoint asincroni \\
+    Apache Maven        & 3.9 & Compilazione e produzione dell'archivio WAR \\
+    \bottomrule
+  \end{tabular}
+  \caption{Tecnologie impiegate.}\label{tab:tecnologie}
+\end{table}
+
+Tomcat~9 è un vincolo e non una preferenza: il codice usa il namespace
+\texttt{javax.servlet}, che dalla versione~10 è stato rinominato in
+\texttt{jakarta.servlet}.
+
+Il codice è organizzato in quattro package: \texttt{control} (21 servlet),
+\texttt{model} (bean e DAO), \texttt{filter} (controllo degli accessi e codifica
+dei caratteri) e \texttt{config} (configurazione risolta all'avvio). Nessuna
+pagina JSP accede direttamente alla base di dati: riceve dalla servlet i dati già
+pronti come attributi della richiesta o della sessione.
+
+\subsection{Servlet, viste e filtri}
+
+Il controllo degli accessi non è ripetuto in ogni servlet ma concentrato in tre
+filtri, a cui se ne aggiunge un quarto per la codifica dei caratteri.
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{llp{6.6cm}}
+    \toprule
+    \textbf{Filtro} & \textbf{Pattern} & \textbf{Comportamento} \\
+    \midrule
+    \texttt{EncodingFilter} & \texttt{/*} & Impone UTF-8 sul corpo delle richieste \\
+    \texttt{UserFilter} & \texttt{/user/*} & Richiede un utente autenticato \\
+    \texttt{AdminFilter} & \texttt{/admin/*} & Richiede il ruolo di amministratore \\
+    \texttt{JspFilter} & \texttt{/pages/views/*} & Nega ogni accesso diretto alle viste \\
+    \bottomrule
+  \end{tabular}
+  \caption{Filtri e pattern di URL.}\label{tab:filtri}
+\end{table}
+
+\texttt{JspFilter} merita una nota: le pagine sotto \texttt{pages/views} sono
+viste e non risorse pubbliche, e senza i dati preparati da una servlet
+produrrebbero errori. Il filtro nega quindi ogni richiesta diretta, ma le pagine
+restano raggiungibili tramite l'inoltro interno, che il dispatcher predefinito
+non intercetta.
+
+\begin{landscape}
+\begin{figure}[H]
+  \centering
+  \resizebox{!}{13.4cm}{\mappaServlet}
+  \caption{Mappa delle servlet, delle viste e delle aree protette dai filtri.
+           In azzurro le servlet, in giallo le viste JSP, in rosso le risposte
+           generate dinamicamente, in verde il filtro sulle viste.}
+  \label{fig:servlet}
+\end{figure}
+\end{landscape}
+
+\subsection{Dallo schema concettuale allo schema realizzato}
+
+Lo schema effettivo è più semplice di quello di figura~\ref{fig:er}, per due
+scelte prese in fase di sviluppo:
+
+\begin{itemize}
+  \item \textbf{Cliente} e \textbf{Admin} non sono tabelle distinte: la
+        specializzazione è resa da un campo \texttt{tipo} nella tabella
+        \texttt{Utente}, che assume i valori \texttt{user} e \texttt{admin};
+  \item le specializzazioni di \textbf{Prodotto} non hanno attributi propri, per
+        cui sono anch'esse ridotte a un campo \texttt{tipo}
+        (\texttt{keyboard}, \texttt{switch}, \texttt{keycap}).
+\end{itemize}
+
+Restano quindi quattro tabelle collegate in cascata: un \texttt{Utente} ha più
+\texttt{Ordine}, ogni ordine ha più righe di \texttt{Acquisto}, e ogni riga
+riferisce un \texttt{Prodotto}.
+
+Tre scelte progettuali sono degne di nota:
+
+\begin{description}
+  \item[Dati fotografati all'acquisto.] \texttt{Acquisto} non si limita a
+    collegare ordine e prodotto: ne copia prezzo, aliquota IVA e nome del file
+    immagine. Una variazione di listino non altera così gli ordini già conclusi,
+    e una fattura ristampata a distanza di mesi riporta gli importi corretti.
+  \item[Indirizzo per ordine.] L'indirizzo di consegna è memorizzato su ogni
+    \texttt{Ordine} e non letto dal profilo, perché lo stesso cliente può
+    spedire a destinazioni diverse. Quello del profilo resta il valore proposto
+    per impostazione predefinita.
+  \item[Cancellazione logica.] L'eliminazione di un prodotto imposta
+    \texttt{tipo = 'Eliminato'} anziché rimuovere la riga: una cancellazione
+    fisica violerebbe il vincolo di chiave esterna con \texttt{Acquisto} e
+    cancellerebbe lo storico degli ordini.
+\end{description}
+
+\subsection{Compilazione ed esecuzione}
+
+Il progetto nasceva come \emph{Dynamic Web Project} di Eclipse: la configurazione
+del server, del percorso delle immagini e delle credenziali viveva nel workspace
+dell'IDE e non nel repository, rendendo il progetto non riproducibile altrove.
+
+La compilazione è ora affidata a Maven, che produce l'archivio WAR e risolve le
+librerie in luogo dei file JAR precedentemente versionati. L'esecuzione è
+affidata a Docker Compose, che avvia due contenitori: MySQL, che alla prima
+creazione del volume esegue lo schema e i dati di esempio, e Tomcat~9 con
+l'applicazione, costruita da un \texttt{Dockerfile} a due fasi. Un solo comando
+avvia l'intero sistema, senza installare Maven, MySQL o Tomcat.
+
+Le credenziali non sono più scritte nel repository: \texttt{context.xml} contiene
+segnaposto che Tomcat risolve all'avvio leggendo le variabili d'ambiente, oppure
+le \emph{system property} quando l'applicazione viene avviata da IDE.
+
+\begin{lstlisting}[language=XML,caption={Dichiarazione del data source.},label=lst:context]
+<Resource name="jdbc/keyItaly"
+          auth="Container"
+          type="javax.sql.DataSource"
+          driverClassName="com.mysql.cj.jdbc.Driver"
+          url="${DB_URL}"
+          username="${DB_USERNAME}"
+          password="${DB_PASSWORD}"
+          connectionProperties="useUnicode=true;characterEncoding=UTF-8"/>
+\end{lstlisting}
+
+Analogamente, la directory delle immagini del catalogo --- esterna
+all'applicazione perché scrivibile dall'amministratore --- viene individuata
+all'avvio da un listener che la cerca fra variabile d'ambiente, system property e
+parametro di contesto, creandola se assente. Se non è utilizzabile
+l'applicazione non parte: l'errore diventa così immediatamente visibile invece di
+manifestarsi come una serie di immagini mancanti.
+
+\subsection{Limiti noti}
+
+Il progetto ha finalità didattiche e alcune scelte, accettabili in quel contesto,
+non sarebbero adeguate a un sistema in esercizio.
+
+\begin{itemize}
+  \item \textbf{Password in chiaro}, senza funzione di hash.
+  \item \textbf{Assenza di protezione CSRF}; alcune operazioni di modifica
+        accettano anche richieste GET.
+  \item \textbf{Output non filtrato}: le JSP scrivono i valori senza codifica
+        delle entità HTML, con possibile cross-site scripting persistente.
+  \item \textbf{Giacenza non verificata}: l'acquisto non controlla né decrementa
+        la disponibilità.
+  \item \textbf{Nessun test automatico}: la verifica è stata condotta
+        manualmente.
+\end{itemize}
+
+Le evoluzioni naturali sono l'introduzione dell'hashing delle password e dei
+token CSRF, la sostituzione degli scriptlet con JSTL ed \emph{expression
+language} --- che darebbe la codifica automatica dell'output --- e la gestione
+transazionale della conclusione dell'ordine.
+
+\end{document}

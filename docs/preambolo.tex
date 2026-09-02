@@ -1,0 +1,155 @@
+% Preambolo condiviso dai documenti del progetto KeyItaly.
+% Stile accademico sobrio: nessun colore decorativo, tipografia standard.
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage[a4paper,margin=2.8cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage[font=small,labelfont=bf,width=.92\textwidth]{caption}
+\usepackage{listings}
+
+\usepackage[hidelinks,pdfusetitle]{hyperref}
+\usepackage{url}
+\urlstyle{same}
+
+\usetikzlibrary{positioning,shapes.geometric,arrows.meta,calc,fit,backgrounds}
+
+% Interlinea leggermente aperta, più leggibile in stampa
+\usepackage{setspace}
+\onehalfspacing
+
+% Elenchi più compatti dei default di LaTeX
+\setlist[itemize]{itemsep=2pt,topsep=4pt,parsep=0pt}
+\setlist[enumerate]{itemsep=2pt,topsep=4pt,parsep=0pt}
+\setlist[description]{itemsep=4pt,topsep=6pt}
+
+% ---------------------------------------------------------------------------
+% Diagrammi
+%
+% La codifica cromatica è la stessa in tutto il documento:
+%   grigio = accessibile a chiunque
+%   azzurro = riservato all'utente registrato
+%   rosso = riservato all'amministratore
+%   giallo = vista JSP
+%   verde = pattern di URL protetto da un filtro
+% ---------------------------------------------------------------------------
+\definecolor{cPubblico}{HTML}{ECECEC}
+\definecolor{cUtente}{HTML}{CFE2F7}
+\definecolor{cAdmin}{HTML}{F7D2D2}
+\definecolor{cVista}{HTML}{FDEDC8}
+\definecolor{cFiltro}{HTML}{D8EBD5}
+\definecolor{cBordo}{HTML}{5A5A5A}
+
+\tikzset{
+  nodo/.style={
+    draw=cBordo, line width=.5pt, rounded corners=2pt,
+    align=center, font=\scriptsize, inner sep=2pt,
+    minimum height=7mm, text width=20mm},
+  pubblico/.style={nodo, fill=cPubblico},
+  utente/.style={nodo, fill=cUtente},
+  admin/.style={nodo, fill=cAdmin},
+  vista/.style={nodo, fill=cVista},
+  filtro/.style={nodo, fill=cFiltro},
+  linea/.style={draw=cBordo, line width=.5pt},
+  freccia/.style={linea, -{Stealth[length=4pt,width=3pt]}},
+  tratteggio/.style={freccia, dashed, dash pattern=on 2.5pt off 2pt},
+  % Notazione entità-relazione
+  entita/.style={draw=black, line width=.6pt, fill=white,
+    align=center, font=\small, minimum height=8mm, inner xsep=8pt},
+  relazione/.style={draw=black, line width=.6pt, fill=white, diamond,
+    aspect=2.2, align=center, font=\scriptsize, inner sep=1pt},
+  composto/.style={draw=black, line width=.6pt, fill=white, ellipse,
+    align=center, font=\scriptsize, inner sep=2pt},
+  pallino/.style={draw=black, line width=.5pt, fill=white, circle,
+    inner sep=0pt, minimum size=3.2pt},
+  pallinoPieno/.style={pallino, fill=black},
+  etichetta/.style={font=\scriptsize, inner sep=1.5pt},
+}
+
+% Attributo di un'entità nella notazione entità-relazione.
+%   #1 stile del pallino (pallino oppure pallinoPieno)
+%   #2 punto di attacco sul bordo dell'entità
+%   #3 spostamento fino al pallino
+%   #4 ancoraggio dell'etichetta rispetto al pallino
+%   #5 testo dell'etichetta
+\newcommand{\attributo}[5]{%
+  \draw[line width=.5pt] (#2) -- ++(#3) node[#1] (ultimoAttr) {};
+  \node[etichetta, anchor=#4, align=center] at (ultimoAttr) {#5};%
+}
+
+% Le figure occupano quasi tutta la larghezza del testo
+\newcommand{\figuraLarga}[3]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{#1}
+    \caption{#2}\label{#3}
+  \end{figure}}
+
+% Stile per i frammenti di codice e configurazione
+\lstdefinestyle{sobrio}{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  numbers=none,
+  frame=single,
+  rulecolor=\color{black!35},
+  framesep=6pt,
+  breaklines=true,
+  showstringspaces=false,
+  captionpos=b,
+  extendedchars=true,
+  literate={à}{{\`a}}1 {è}{{\`e}}1 {é}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+}
+\lstset{style=sobrio}
+
+% Frontespizio
+\newcommand{\frontespizio}[2]{%
+  \begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE Università degli Studi di Salerno\par}
+    \vspace{4mm}
+    {\large Dipartimento di Informatica\par}
+    {\large Corso di Laurea in Informatica\par}
+    \vspace{2.2cm}
+    {\large Tecnologie Software per il Web\par}
+    \vspace{1.4cm}
+    \rule{\linewidth}{0.4pt}\par
+    \vspace{6mm}
+    {\huge\bfseries #1\par}
+    \vspace{4mm}
+    {\Large\itshape KeyItaly\par}
+    \vspace{3mm}
+    {\large #2\par}
+    \vspace{6mm}
+    \rule{\linewidth}{0.4pt}\par
+    \vfill
+    \begin{minipage}[t]{0.45\textwidth}
+      \raggedright
+      \textbf{Docente}\par
+      \vspace{2mm}
+      Prof.ssa Rita Francese
+    \end{minipage}%
+    \begin{minipage}[t]{0.45\textwidth}
+      \raggedleft
+      \textbf{Studenti}\par
+      \vspace{2mm}
+      Giovanni Cerchia\quad 0512120818\par
+      Andrea Compagnone\quad 0512116159
+    \end{minipage}
+    \vspace{1.4cm}
+    \par
+    {\large Anno Accademico 2023/2024\par}
+    \vspace{1cm}
+  \end{titlepage}}
