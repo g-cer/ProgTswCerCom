@@ -1,0 +1,65 @@
+# Avvio completo dell'applicazione:
+#
+#   docker compose up --build     ->  http://localhost:8080
+#   docker compose down               ferma tutto, conserva i dati
+#   docker compose down -v            azzera il database e ricarica i dati di esempio
+#
+# Gli script in db/init vengono eseguiti da MySQL SOLTANTO alla prima creazione
+# del volume: dopo una modifica a quei file serve "docker compose down -v".
+
+name: keyitaly
+
+services:
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-keyItaly}
+      MYSQL_USER: ${DB_USERNAME:-keyitaly}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-keyitaly}
+      TZ: Europe/Rome
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      # Schema e dati di esempio, eseguiti in ordine alfabetico
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - db-data:/var/lib/mysql
+    ports:
+      # Sulla 3306 c'e' spesso un MySQL gia' installato: si usa la 3307
+      - "127.0.0.1:${DB_PORT:-3307}:3306"
+    healthcheck:
+      # L'indirizzo TCP e non il socket: durante il caricamento dei dati MySQL
+      # ascolta solo sul socket UNIX, e un ping su socket dichiarerebbe il
+      # servizio pronto mentre il seed e' ancora in corso
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+
+  app:
+    build: .
+    environment:
+      # Nomi in maiuscolo: valgono sia come variabili d'ambiente (qui) sia come
+      # system property -D (avvio da IDE), e alimentano i segnaposto di
+      # META-INF/context.xml
+      DB_URL: jdbc:mysql://db:3306/${DB_NAME:-keyItaly}
+      DB_USERNAME: ${DB_USERNAME:-keyitaly}
+      DB_PASSWORD: ${DB_PASSWORD:-keyitaly}
+      KEYITALY_MEDIA_DIR: /var/lib/keyitaly/immaginiCatalogo
+      TZ: Europe/Rome
+    volumes:
+      # Le immagini caricate dall'amministratore restano sul disco dell'host
+      - ./immaginiCatalogo:/var/lib/keyitaly/immaginiCatalogo
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db-data:

@@ -1,1 +1,39 @@
-/build/
+# Build Maven
+target/
+*.war
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# LaTeX (file ausiliari; i PDF generati sono invece versionati)
+docs/*.aux
+docs/*.log
+docs/*.out
+docs/*.toc
+docs/*.lof
+docs/*.lot
+docs/*.fls
+docs/*.fdb_latexmk
+docs/*.synctex.gz
+docs/*.bbl
+docs/*.bcf
+docs/*.blg
+docs/*.run.xml
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configurazione locale
+.env

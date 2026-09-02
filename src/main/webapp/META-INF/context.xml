@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Data source gestito dal container.
+
+  I valori non sono scritti qui: Tomcat risolve i segnaposto ${...} leggendoli
+  dalle variabili d'ambiente (Docker) oppure dalle system property -D (IDE),
+  cosi' nessuna credenziale finisce nel repository.
+
+  I parametri di connessione stanno in connectionProperties e non nella URL:
+  in questo modo la URL resta priva di '&', che andrebbe scritto come &amp;
+  nell'XML e creerebbe problemi se il valore passasse da una shell.
+-->
+<Context>
+    <Resource name="jdbc/keyItaly"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="${DB_URL}"
+              username="${DB_USERNAME}"
+              password="${DB_PASSWORD}"
+              connectionProperties="useUnicode=true;characterEncoding=UTF-8;serverTimezone=Europe/Rome;useSSL=false;allowPublicKeyRetrieval=true"
+              maxTotal="20"
+              maxIdle="5"
+              minIdle="2"
+              maxWaitMillis="10000"
+              validationQuery="SELECT 1"
+              testOnBorrow="true"/>
+</Context>

@@ -1,0 +1,9 @@
+.git
+.github
+docs
+target
+immaginiCatalogo
+db
+*.md
+LICENSE
+compose.yaml

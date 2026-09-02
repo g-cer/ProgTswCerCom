@@ -1,0 +1,109 @@
+/* Proprietà body per tutte le pagine */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background-color: #f8f9fa;
+}
+
+/* Proprietà nav */
+nav {
+	background-color: #333;
+	/* overflow: hidden; */
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	overflow: visible;
+}
+
+nav a {
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: background-color 0.12s;
+}
+
+nav a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.fa-user, .fa-arrow-right-from-bracket {
+	margin-right: 10px;
+}
+
+nav .search-container {
+  float: right;
+  position: relative;
+  margin-right: 16px;
+}
+
+nav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+nav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+nav .search-container button:hover {
+  background: #ccc;
+}
+
+nav #results {
+  position: absolute;
+  background-color: #333;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+nav #results a {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  word-break: break-all;
+}
+
+nav br {
+	display: none;
+}
+
+@media screen and (max-width: 700px) {
+  nav .search-container {
+    width: 100%;
+    margin-right: 0px;
+  }
+  
+  nav .search-container button {
+  	display: none;
+  }
+  
+  nav input[type=text] {
+  	width: 100%;
+  	height: 2.5em;
+  	margin-top: 0px;
+  	box-sizing: border-box;
+  	border-bottom: 1px solid #333;
+  }
+  
+  nav br {
+  	display: block;
+  	margin-top: calc(1em + 32px);
+  }
+  
+}
